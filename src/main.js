@@ -17,7 +17,7 @@ $(document).ready(function() {
   test_knight.weaponCheck();
   test_wizard.weaponCheck();
   test_archer.weaponCheck();
-  battle.attack()
+  battle.attack();
   console.log(test_monster);
   // console.log(test_archer);
   // console.log(test_wizard);

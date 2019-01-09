@@ -3,6 +3,7 @@ export class Monster{
     this.health = 10;
     this.speed = 1;
     this.attack = 1;
+    this.inBattle = false;
     this.dead = false;
   }
   death(){

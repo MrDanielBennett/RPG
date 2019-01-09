@@ -7,10 +7,11 @@ export class Character{
     this.level = 1;
     this.experience = 0;
     this.inventory = [];
+    this.inBattle = false;
     this.dead = false;
   }
   levelUp() {
-    if (this.experience === 100) {
+    if (this.experience >= 100) {
       this.experience = 0;
       this.level ++;
       this.health += 5;

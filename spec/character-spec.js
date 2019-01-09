@@ -1,6 +1,8 @@
 import { Character } from './../src/character.js';
 import { Knight } from './../src/knight.js';
 import { Wizard } from './../src/wizard.js';
+import { Monster } from './../src/monster.js';
+import { Battle } from './../src/battle.js';
 
 describe('Character', function() {
 
@@ -39,5 +41,24 @@ describe('weaponCheck', function() {
     staffBase.inventory = ['magic_staff'];
     staffBase.weaponCheck();
     expect(staffBase.attack).toEqual(4);
+  });
+});
+
+describe('battle', function() {
+
+  it('should simulate a battle to the death', function() {
+    let player = new Knight();
+    let enemy = new Monster();
+    let battle = new Battle(player, enemy);
+    battle.attack();
+    expect(player.inBattle).toEqual(true);
+  });
+
+  it('should gain player experience every hit and level up', function() {
+    let player = new Knight();
+    let enemy = new Monster();
+    player.experience = 101;
+    player.levelUp();
+    expect(player.level).toEqual(2);
   });
 });

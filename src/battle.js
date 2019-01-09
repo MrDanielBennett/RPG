@@ -7,6 +7,8 @@ export class Battle {
   attack() {
     let player = this.player;
     let enemy = this.enemy;
+    player.inBattle = true;
+    enemy.inBattle = true;
     let playerAttack = setInterval(function() {
       enemy.death();
       player.death();
@@ -15,7 +17,9 @@ export class Battle {
         clearInterval(playerAttack)
       } else {
         enemy.health -= player.attack;
-        console.log('player hit');
+        player.experience += 3;
+        player.levelUp();
+        console.log('player hit', enemy.health);
       }
     }, (5000-(player.speed*400)));
 
@@ -23,11 +27,12 @@ export class Battle {
       enemy.death();
       player.death();
       if (enemy.dead === true || player.dead === true) {
-
+        player.inBattle = false;
+        enemy.inBattle = false;
         clearInterval(enemyAttack)
       } else {
         player.health -= enemy.attack;
-        console.log('enemy hit');
+        console.log('enemy hit', player.health);
       }
     }, (5000-(enemy.speed*400)));
 
