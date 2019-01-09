@@ -25,7 +25,11 @@ export class Character{
   }
   weaponCheck(){
     if (this.inventory.includes("sword")){
+      this.attack +=4;
+    } else if (this.inventory.includes("magic_staff")){
       this.attack +=3;
+    } else if (this.inventory.includes("bow")){
+      this.attack +=2;
     }
   }
 }

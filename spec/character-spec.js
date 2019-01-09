@@ -1,5 +1,6 @@
 import { Character } from './../src/character.js';
 import { Knight } from './../src/knight.js';
+import { Wizard } from './../src/wizard.js';
 
 describe('Character', function() {
 
@@ -17,11 +18,27 @@ describe('Knight', function() {
   });
 });
 
+describe('Wizard', function() {
+
+  it('should create a knight character with stat changes', function() {
+    let wizard = new Wizard();
+    expect(wizard.attack).toEqual(4);
+  });
+});
+
 describe('weaponCheck', function() {
   it('should identify sword in inventory and add attack', function() {
-    let base = new Character();
-    base.inventory = ['sword'];
-    base.weaponCheck();
-    expect(base.attack).toEqual(4);
+    let swordBase = new Character();
+    swordBase.inventory = ['sword'];
+    swordBase.weaponCheck();
+    expect(swordBase.attack).toEqual(5);
   });
+
+  it('should identify magic_staff in inventory and add attack', function() {
+    let staffBase = new Character();
+    staffBase.inventory = ['magic_staff'];
+    staffBase.weaponCheck();
+    expect(staffBase.attack).toEqual(4);
+  });
+
 });
