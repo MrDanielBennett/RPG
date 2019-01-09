@@ -7,6 +7,7 @@ export class Character{
     this.level = 1;
     this.experience = 0;
     this.inventory = [];
+    this.dead = false;
   }
   levelUp() {
     if (this.experience === 100) {
@@ -21,6 +22,7 @@ export class Character{
   death(){
     if(this.health < 1){
       this.inventory = [];
+      this.dead = true;
     }
   }
   weaponCheck(){

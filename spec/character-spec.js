@@ -40,5 +40,4 @@ describe('weaponCheck', function() {
     staffBase.weaponCheck();
     expect(staffBase.attack).toEqual(4);
   });
-
 });
