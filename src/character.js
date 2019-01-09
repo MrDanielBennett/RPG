@@ -1,5 +1,5 @@
-class Character{
-  constructor(health, energy, speed, attack, level, experience, inventory){
+export class Character{
+  constructor(){
     this.health = 10;
     this.energy = 10;
     this.speed = 1;
@@ -21,6 +21,11 @@ class Character{
   death(){
     if(this.health < 1){
       this.inventory = [];
+    }
+  }
+  weaponCheck(){
+    if (this.inventory.includes("sword")){
+      this.attack +=3;
     }
   }
 }
