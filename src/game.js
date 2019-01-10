@@ -1,4 +1,5 @@
 import { Character } from './character.js';
+import * as url from '../img/dungeon_tiles.png';
 
 // var ARROW_MAP = {
 //   37: 'left',
@@ -19,10 +20,27 @@ export class Game {
     console.log(this._player);
   }
 
+  // _init() {
+  //   let mapItem = new Image();
+  //   mapItem.src = 'img/dungeon_tiles'
+
+    // terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
+
+    // document.getElementById('play-again').addEventListener('click', function() {
+    //     reset();
+    // });
+    //
+    // reset();
+    // lastTime = Date.now();
+    // main();
+// }
+
   play() {
     this._clear(); // clear the whole canvas to draw something new
     this._drawBorder(); // draw a game area border
+    this._drawMap();
     this._player.draw(); // update player on each tick
+    // this._ctx.fillRect(20, 20, 150, 100);
 
     if (this._checkState()) { // check game status : run other tick if player doesn't lose =)
       requestAnimationFrame(this.play.bind(this));
@@ -59,6 +77,18 @@ export class Game {
   _drawBorder() {
     this._ctx.beginPath();
     this._ctx.rect(0, 0, this._width, this._height);
+    this._ctx.fillStyle = '#201D26';
+    this._ctx.fillRect(0, 0, this._width, this._height);
+    this._ctx.stroke();
+  }
+
+  _drawMap() {
+    let mapItem = document.createElement('img');
+    mapItem.src = url.default;
+    this._ctx.moveTo(0, 0);
+    // ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    this._ctx.drawImage(mapItem,32,31,170,180,0,0,1100,1000)
+    this._ctx.lineTo(200, 100);
     this._ctx.stroke();
   }
 

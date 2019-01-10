@@ -1,4 +1,3 @@
-//
 // var ARROW_MAP = {
 //   37: 'left',
 //   40: 'up',

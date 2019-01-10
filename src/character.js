@@ -1,3 +1,5 @@
+// import * as map from '../img/dungeon_tiles.png';
+import * as mage from '../img/wizard.png';
 import * as monster from './monster.js';
 import {Battle} from './battle.js'
 
@@ -8,7 +10,7 @@ var ARROW_MAP = {
   38: 'down'
 };
 
-export class Character{
+export class Character {
   constructor(ctx, width, height){
     this.health = 10;
     this.energy = 10;
@@ -104,9 +106,12 @@ export class Character{
   }
 
   draw() {
+    let sprite = document.createElement('img');
+    sprite.src = mage.default;
     this._ctx.beginPath();
-    this._ctx.rect(this._x, this._y, this._width, this._height);
-    this._ctx.fillStyle = 'yellow';
+    this._ctx.drawImage(sprite,this._x,this._y)
+    // this._ctx.rect(this._x, this._y, this._width, this._height);
+    // this._ctx.fillStyle = 'yellow';
     this._ctx.fill();
   }
 
