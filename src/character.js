@@ -1,7 +1,7 @@
 // import * as map from '../img/dungeon_tiles.png';
 import * as mage from '../img/wizard.png';
 import * as monster from './monster.js';
-import {Battle} from './battle.js'
+import {Battle} from './battle.js';
 
 var ARROW_MAP = {
   37: 'left',
@@ -80,9 +80,9 @@ export class Character {
 
   armorCheck(){
     if (this.equipped.includes('rags')){
-        this.speed += 1;
+      this.speed += 1;
     } else if (this.equipped.includes("leather_armor")){
-    this.health +=10;
+      this.health +=10;
     } else if (this.equipped.includes("bronze_plate")){
       this.health +=20;
       this.speed -= 1;
@@ -97,7 +97,7 @@ export class Character {
 
   _battleRNG() {
     let slime = new monster.Slime(this._ctx, this._width, this._height, 0, 0);
-    if (Math.floor(Math.random() * 100) < 5) {
+    if (Math.floor(Math.random() * 10000000) < 5) {
       let battle = new Battle(this, slime);
       console.log(this);
       battle.attack();
@@ -108,7 +108,7 @@ export class Character {
     let sprite = document.createElement('img') ;
     sprite.src = mage.default;
     this._ctx.beginPath();
-    this._ctx.drawImage(sprite,this._x,this._y)
+    this._ctx.drawImage(sprite,this._x,this._y);
     this._ctx.fill();
   }
 
@@ -126,16 +126,27 @@ export class Character {
     let arrow = ARROW_MAP[e.keyCode];
 
     if (arrow === 'left') {
-      this._x -= this._speed;
+      // debugger;
+      if (!(this._x - this._speed < 20)) {
+        this._x -= this._speed;
+      }
     }
     if (arrow === 'right') {
-      this._x += this._speed;
+      if (!(this._x + this._speed > 475)) {
+        this._x += this._speed;
+      }
     }
     if (arrow === 'up') {
-      this._y += this._speed;
+      if (!(this._y + this._speed > 390)) {
+        // console.log(this._y);
+        this._y += this._speed;
+      }
+      // this._y += this._speed;
     }
     if (arrow === 'down') {
-      this._y -= this._speed;
+      if (!(this._y - this._speed < 20)) {
+        this._y -= this._speed;
+      }
     }
   }
 }

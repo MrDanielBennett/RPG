@@ -14,3 +14,9 @@ canvas {
     left: 0;
     right: 0;
 }
+
+#playerHealth {
+  color: white;
+  font-size: 30px;
+  /* transform: translate(200px, 300px); */
+}

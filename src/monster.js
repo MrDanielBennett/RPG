@@ -25,7 +25,7 @@ export class Monster{
     let sprite = document.createElement('img');
     sprite.src = this.ImgSource;
     this._ctx.beginPath();
-    this._ctx.drawImage(sprite,this._x+10,this._y+10)
+    this._ctx.drawImage(sprite,this._x+10,this._y+10);
     this._ctx.fill();
     return 'hello';
   }

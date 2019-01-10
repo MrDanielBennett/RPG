@@ -1,8 +1,10 @@
+import $ from 'jquery';
 import * as character from './character.js';
 import * as monster from './monster.js';
 import * as url from '../img/dungeon_tiles.png';
 import * as wallUrl from '../img/wall.png';
 import * as slimeSprite from '../img/rpgcritters_slime.png';
+// import { PlayerHealth } from './statUI.js'
 
 export class Game {
   constructor(canvas, width, height) {
@@ -35,25 +37,26 @@ export class Game {
     if (this._checkState()) { // check game status : run other tick if player doesn't lose =)
       requestAnimationFrame(this.play.bind(this));
     } else {
-      this._playLose();
+      // this._player._speed += -5;
     }
+  $('#playerHealth').text(this._player.health);
   }
 
   _checkState() {
     let borders = this._player.getBorders();
     return (borders.xMin >= 0 &&
-      borders.xMax <= this._width &&
-      borders.yMin >= 0 &&
-      borders.yMax <= this._height);
+      borders.xMax <= this._width+30 &&
+      borders.yMin >= 10 &&
+      borders.yMax <= this._height+40);
   }
-
-  _playLose() {
-    let test = this._monster;
-    setTimeout(function(){
-      test.ImgSource = slimeSprite.default
-    }, 3000);
-    test.draw();
-  }
+  //
+  // _playLose() {
+  //   let test = this._monster;
+  //   setTimeout(function(){
+  //     test.ImgSource = slimeSprite.default;
+  //   }, 3000);
+  //   test.draw();
+  // }
 
   _drawBorder() {
     this._ctx.beginPath();
@@ -66,14 +69,14 @@ export class Game {
   _drawTerrain() {
     let mapItem = document.createElement('img');
     mapItem.src = url.default;
-    this._ctx.drawImage(mapItem,32,31,160,180,0,0,this._width*2,this._height*2)
+    this._ctx.drawImage(mapItem,32,31,160,180,0,0,this._width*2,this._height*2);
   }
 
   _drawLayout() {
     let wall = document.createElement('img');
     wall.src = wallUrl.default;
     // ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-    this._ctx.drawImage(wall,20,50,20,50)
+    this._ctx.drawImage(wall,20,50,20,50);
     // let wallWith =
   }
 
