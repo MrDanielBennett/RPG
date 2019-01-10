@@ -61,4 +61,12 @@ describe('battle', function() {
     player.levelUp();
     expect(player.level).toEqual(2);
   });
+
+  it('should add health when player uses health potion', function() {
+    let player = new Knight();
+    let enemy = new Monster();
+    player.experience = 101;
+    player.levelUp();
+    expect(player.level).toEqual(2);
+  });
 });

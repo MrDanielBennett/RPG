@@ -14,12 +14,12 @@ export class Battle {
       player.death();
       if (enemy.dead === true || player.dead === true) {
 
-        clearInterval(playerAttack)
+        clearInterval(playerAttack);
       } else {
         enemy.health -= player.attack;
         player.experience += 3;
         player.levelUp();
-        console.log('player hit', enemy.health);
+        console.log('player hit, enemy health:', enemy.health);
       }
     }, (5000-(player.speed*400)));
 
@@ -29,13 +29,20 @@ export class Battle {
       if (enemy.dead === true || player.dead === true) {
         player.inBattle = false;
         enemy.inBattle = false;
-        clearInterval(enemyAttack)
+        clearInterval(enemyAttack);
       } else {
         player.health -= enemy.attack;
-        console.log('enemy hit', player.health);
+        console.log('enemy hit, player health:', player.health);
       }
     }, (5000-(enemy.speed*400)));
 
+  }
+
+  useHealthPotion() {
+    let player = this.player;
+    if (player.inventory.includes('health_potion')) {
+      player.health += 5;
+    } else console.log('no health potion present');
   }
 
 }
