@@ -1,5 +1,15 @@
+import * as monster from './monster.js';
+import {Battle} from './battle.js'
+
+var ARROW_MAP = {
+  37: 'left',
+  40: 'up',
+  39: 'right',
+  38: 'down'
+};
+
 export class Character{
-  constructor(){
+  constructor(ctx, width, height){
     this.health = 10;
     this.energy = 10;
     this.speed = 1;
@@ -10,7 +20,17 @@ export class Character{
     this.equipped = [];
     this.inBattle = false;
     this.dead = false;
+    this._ctx = ctx;
+    this._width = width;
+    this._height = height;
+    this._x = 0;
+    this._y = 0;
+    this._speed = 5; //set default player speed
+    document.addEventListener('keydown', this.keydown.bind(this));
+    //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
+    document.addEventListener('keydown', this._battleRNG.bind(this));
   }
+
   levelUp() {
     if (this.experience >= 100) {
       this.experience = 0;
@@ -21,12 +41,14 @@ export class Character{
       this.attack++;
     }
   }
+
   death(){
     if(this.health < 1){
       this.inventory = [];
       this.dead = true;
     }
   }
+
   weaponCheck(){
     if (this.equipped.includes("sword")){
       this.attack +=4;
@@ -68,6 +90,49 @@ export class Character{
     } else if (this.equipped.includes("obsidian_plate")){
       this.heat +=60;
       this.speed -= 3;
+    }
+  }
+
+  _battleRNG() {
+    let slime = new monster.Slime();
+    if (Math.floor(Math.random() * 100) < 5) {
+      let battle = new Battle(this, slime);
+      console.log('Attack!');
+      battle.attack();
+      // battle = new Battle(this, )
+    }
+  }
+
+  draw() {
+    this._ctx.beginPath();
+    this._ctx.rect(this._x, this._y, this._width, this._height);
+    this._ctx.fillStyle = 'yellow';
+    this._ctx.fill();
+  }
+
+  getBorders() {
+    return {
+      xMin: this._x,
+      xMax: this._x + this._width,
+      yMin: this._y,
+      yMax: this._y + this._height,
+    };
+  }
+
+  keydown(e) {
+    let arrow = ARROW_MAP[e.keyCode];
+
+    if (arrow === 'left') {
+      this._x -= this._speed;
+    }
+    if (arrow === 'right') {
+      this._x += this._speed;
+    }
+    if (arrow === 'up') {
+      this._y += this._speed;
+    }
+    if (arrow === 'down') {
+      this._y -= this._speed;
     }
   }
 }
