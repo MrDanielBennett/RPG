@@ -1,7 +1,10 @@
 // import * as map from '../img/dungeon_tiles.png';
-import * as mage from '../img/wizard.png';
+import * as knightSprite from '../img/knight.png';
+// import * as archerSprite from '../img/archer.png';
+// import * as mage from '../img/wizard.png';
 import * as monster from './monster.js';
 import {Battle} from './battle.js';
+// import { Game } from './game.js';
 
 var ARROW_MAP = {
   37: 'left',
@@ -21,6 +24,7 @@ export class Character {
     this.inventory = [];
     this.equipped = [];
     this.inBattle = false;
+    this.lastBattle = 0;
     this.dead = false;
     this._ctx = ctx;
     this._width = width;
@@ -48,6 +52,8 @@ export class Character {
     if(this.health < 1){
       this.inventory = [];
       this.dead = true;
+      // let game = new Game(document.getElementsByTagName('canvas')[0], 512, 480);
+      // game.play();
     }
   }
 
@@ -96,17 +102,21 @@ export class Character {
   }
 
   _battleRNG() {
-    let slime = new monster.Slime(this._ctx, this._width, this._height, 0, 0);
-    if (Math.floor(Math.random() * 10000000) < 5) {
-      let battle = new Battle(this, slime);
-      console.log(this);
-      battle.attack();
+    if (this.inBattle === false && ((Date.now() - this.lastBattle) > 20000)) {
+      console.log(Date.now() - this.lastBattle);
+      let slime = new monster.Slime(this._ctx, this._width, this._height, 0, 0);
+      if (Math.floor(Math.random() * 100) < 5) {
+        let battle = new Battle(this, slime);
+        console.log(this);
+        battle.attack();
+        this.lastBattle = Date.now();
+      }
     }
   }
 
   draw() {
     let sprite = document.createElement('img') ;
-    sprite.src = mage.default;
+    sprite.src = knightSprite.default;
     this._ctx.beginPath();
     this._ctx.drawImage(sprite,this._x,this._y);
     this._ctx.fill();
@@ -154,7 +164,6 @@ export class Character {
 export class Archer extends Character {
   constructor(ctx, width, height) {
     super(ctx, width, height);
-    this.attack = 1;
     this.speed = 3;
     this.equipped = ["bow", "rags"];
   }

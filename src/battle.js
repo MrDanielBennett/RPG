@@ -21,7 +21,7 @@ export class Battle {
         clearInterval(playerAttack);
       } else {
         enemy.health -= player.attack;
-        player.experience += 3;
+        player.experience += 10; //this is the experience added per hit
         player.levelUp();
         console.log('player hit, enemy health:', enemy.health);
       }

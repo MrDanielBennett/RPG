@@ -13,7 +13,7 @@ export class Game {
     this._width = width;
     this._height = height;
     this._ctx = canvas.getContext('2d'); // store context to draw something
-    this._player = new character.Archer(this._ctx, this._width / 20, this._height / 20);
+    this._player = new character.Knight(this._ctx, this._width / 20, this._height / 20);
     this._player.weaponCheck();
     this._monster = new monster.Placeholder(this._ctx, this._width / 20, this._height / 20, this._player._x, this._player._y);
     console.log(slimeSprite.default);
@@ -34,29 +34,24 @@ export class Game {
       slime._y = this._player._y;
       slime.draw();
     }
-    if (this._checkState()) { // check game status : run other tick if player doesn't lose =)
+    if (this._checkState() === false) { // check game status : run other tick if player doesn't lose =)
       requestAnimationFrame(this.play.bind(this));
     } else {
-      // this._player._speed += -5;
+      this._playLose();
     }
   $('#playerHealth').text(this._player.health);
   }
 
+  _playLose() {
+  this._ctx.beginPath();
+  this._ctx.font = '50px serif';
+  this._ctx.fillStyle = 'red';
+  this._ctx.fillText("Y O U  D I E D", this._width / 5, this._height / 2);
+}
+
   _checkState() {
-    let borders = this._player.getBorders();
-    return (borders.xMin >= 0 &&
-      borders.xMax <= this._width+30 &&
-      borders.yMin >= 10 &&
-      borders.yMax <= this._height+40);
+    return this._player.dead;
   }
-  //
-  // _playLose() {
-  //   let test = this._monster;
-  //   setTimeout(function(){
-  //     test.ImgSource = slimeSprite.default;
-  //   }, 3000);
-  //   test.draw();
-  // }
 
   _drawBorder() {
     this._ctx.beginPath();
