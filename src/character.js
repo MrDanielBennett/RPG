@@ -25,8 +25,8 @@ export class Character {
     this._ctx = ctx;
     this._width = width;
     this._height = height;
-    this._x = 0;
-    this._y = 0;
+    this._x = 25;
+    this._y = 25;
     this._speed = 5; //set default player speed
     document.addEventListener('keydown', this.keydown.bind(this));
     //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
@@ -96,17 +96,16 @@ export class Character {
   }
 
   _battleRNG() {
-    let slime = new monster.Slime();
+    let slime = new monster.Slime(this._ctx, this._width, this._height, 0, 0);
     if (Math.floor(Math.random() * 100) < 5) {
       let battle = new Battle(this, slime);
-      console.log('Attack!');
+      console.log(this);
       battle.attack();
-      // battle = new Battle(this, )
     }
   }
 
   draw() {
-    let sprite = document.createElement('img');
+    let sprite = document.createElement('img') ;
     sprite.src = mage.default;
     this._ctx.beginPath();
     this._ctx.drawImage(sprite,this._x,this._y)
@@ -143,27 +142,24 @@ export class Character {
 
 export class Archer extends Character {
   constructor(ctx, width, height) {
-    super();
-    this._ctx = ctx;
-    this._width = width;
-    this._height = height;
-    this.attack = 10;
+    super(ctx, width, height);
+    this.attack = 1;
     this.speed = 3;
     this.equipped = ["bow", "rags"];
   }
 }
 
 export class Knight extends Character {
-  constructor() {
-    super();
+  constructor(ctx, width, height) {
+    super(ctx, width, height);
     this.health = 20;
     this.equipped = ["sword", "rags"];
   }
 }
 
 export class Wizard extends Character {
-  constructor() {
-    super();
+  constructor(ctx, width, height) {
+    super(ctx, width, height);
     this.attack = 4;
     this.equipped = ["magic_staff", "rags"];
   }

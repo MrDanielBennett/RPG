@@ -1,15 +1,8 @@
-// import { Character } from './character.js';
 import * as character from './character.js';
+import * as monster from './monster.js';
 import * as url from '../img/dungeon_tiles.png';
 import * as wallUrl from '../img/wall.png';
-
-// var ARROW_MAP = {
-//   37: 'left',
-//   40: 'up',
-//   39: 'right',
-//   38: 'down'
-// };
-
+import * as slimeSprite from '../img/rpgcritters_slime.png';
 
 export class Game {
   constructor(canvas, width, height) {
@@ -18,38 +11,31 @@ export class Game {
     this._width = width;
     this._height = height;
     this._ctx = canvas.getContext('2d'); // store context to draw something
-    this._player = new character.Archer(this._ctx, this._width / 20, this._height / 20); // create a simple player
+    this._player = new character.Archer(this._ctx, this._width / 20, this._height / 20);
+    this._player.weaponCheck();
+    this._monster = new monster.Placeholder(this._ctx, this._width / 20, this._height / 20, this._player._x, this._player._y);
+    console.log(slimeSprite.default);
+    // create a simple player
     console.log(this._player);
   }
-
-  // _init() {
-  //   let mapItem = new Image();
-  //   mapItem.src = 'img/dungeon_tiles'
-
-    // terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
-
-    // document.getElementById('play-again').addEventListener('click', function() {
-    //     reset();
-    // });
-    //
-    // reset();
-    // lastTime = Date.now();
-    // main();
-// }
 
   play() {
     this._clear(); // clear the whole canvas to draw something new
     this._drawBorder(); // draw a game area border
     this._drawTerrain();
-    this._drawLayout()
+    this._drawLayout();
     this._player.draw(); // update player on each tick
-    // this._ctx.fillRect(20, 20, 150, 100);
-
+    if (this._player.inBattle === true) {
+      let slime = this._monster;
+      slime.ImgSource = slimeSprite.default;
+      slime._x = this._player._x + 5;
+      slime._y = this._player._y;
+      slime.draw();
+    }
     if (this._checkState()) { // check game status : run other tick if player doesn't lose =)
       requestAnimationFrame(this.play.bind(this));
-      // this._battleRNG(); // run play again ~60 times per sec
     } else {
-      // this._playLose();
+      this._playLose();
     }
   }
 
@@ -61,20 +47,12 @@ export class Game {
       borders.yMax <= this._height);
   }
 
-  // _battleRNG(e) {
-  //   let arrow = ARROW_MAP[e.keyCode];
-  //
-  //   if ((arrow === 'left') || (arrow === 'right') || (arrow === 'up') || (arrow === 'down')) {
-  //     let rng = (Math.floor(Math.random() * 100));
-  //     console.log(rng);
-  //   }
-  // }
-
   _playLose() {
-    this._ctx.beginPath();
-    this._ctx.font = '30px serif';
-    this._ctx.fillStyle = 'red';
-    this._ctx.fillText("You lose!", this._width / 2, this._height / 2);
+    let test = this._monster;
+    setTimeout(function(){
+      test.ImgSource = slimeSprite.default
+    }, 3000);
+    test.draw();
   }
 
   _drawBorder() {
@@ -88,7 +66,6 @@ export class Game {
   _drawTerrain() {
     let mapItem = document.createElement('img');
     mapItem.src = url.default;
-    // ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
     this._ctx.drawImage(mapItem,32,31,160,180,0,0,this._width*2,this._height*2)
   }
 
@@ -103,7 +80,5 @@ export class Game {
   _clear() {
     this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
   }
-
-
 
 }

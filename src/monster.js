@@ -1,21 +1,49 @@
+import * as slimeSprite from '../img/rpgcritters_slime.png';
+import * as placeholder from '../img/rpgcritters_placeholder.png';
+
 export class Monster{
-  constructor(){
+  constructor(ctx, width, height, x, y){
     this.health = 10;
     this.speed = 1;
     this.attack = 1;
     this.inBattle = false;
     this.dead = false;
+    this._ctx = ctx;
+    this.ImgSource = placeholder.default;
+    this._width = width;
+    this._height = height;
+    this._x = x;
+    this._y = y;
   }
   death(){
     if(this.health < 1){
       this.dead = true;
     }
   }
+
+  draw() {
+    let sprite = document.createElement('img');
+    sprite.src = this.ImgSource;
+    this._ctx.beginPath();
+    this._ctx.drawImage(sprite,this._x+10,this._y+10)
+    this._ctx.fill();
+    return 'hello';
+  }
+
+}
+
+export class Placeholder extends Monster {
+  constructor(ctx, width, height, x, y) {
+    super(ctx, width, height, x, y);
+
+  }
 }
 
 export class Slime extends Monster {
-  constructor() {
-    super();
+  constructor(ctx, width, height, x, y) {
+    super(ctx, width, height, x, y);
+    this.ImgSource = slimeSprite.default;
+
   }
 }
 
