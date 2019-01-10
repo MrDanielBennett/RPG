@@ -1,4 +1,5 @@
-import { Character } from './character.js';
+// import { Character } from './character.js';
+import * as character from './character.js';
 import * as url from '../img/dungeon_tiles.png';
 import * as wallUrl from '../img/wall.png';
 
@@ -17,7 +18,7 @@ export class Game {
     this._width = width;
     this._height = height;
     this._ctx = canvas.getContext('2d'); // store context to draw something
-    this._player = new Character(this._ctx, this._width / 20, this._height / 20); // create a simple player
+    this._player = new character.Archer(this._ctx, this._width / 20, this._height / 20); // create a simple player
     console.log(this._player);
   }
 
@@ -102,6 +103,7 @@ export class Game {
   _clear() {
     this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
   }
+
 
 
 }

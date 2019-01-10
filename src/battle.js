@@ -7,13 +7,17 @@ export class Battle {
   attack() {
     let player = this.player;
     let enemy = this.enemy;
+    let battle = this;
     player.inBattle = true;
     enemy.inBattle = true;
+    battle._battleFreeze();
     let playerAttack = setInterval(function() {
       enemy.death();
       player.death();
       if (enemy.dead === true || player.dead === true) {
-
+        player.inBattle = false;
+        enemy.inBattle = false;
+        battle._battleFreeze();
         clearInterval(playerAttack);
       } else {
         enemy.health -= player.attack;
@@ -36,6 +40,13 @@ export class Battle {
       }
     }, (5000-(enemy.speed*400)));
 
+  }
+
+  _battleFreeze() {
+    let player = this.player;
+    if (player.inBattle === true) {
+      player._speed = 0;
+    } else player._speed = 5;
   }
 
   useHealthPotion() {

@@ -123,6 +123,7 @@ export class Character {
   }
 
   keydown(e) {
+
     let arrow = ARROW_MAP[e.keyCode];
 
     if (arrow === 'left') {
@@ -141,8 +142,12 @@ export class Character {
 }
 
 export class Archer extends Character {
-  constructor() {
+  constructor(ctx, width, height) {
     super();
+    this._ctx = ctx;
+    this._width = width;
+    this._height = height;
+    this.attack = 10;
     this.speed = 3;
     this.equipped = ["bow", "rags"];
   }
