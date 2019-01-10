@@ -1,5 +1,6 @@
 import { Character } from './character.js';
 import * as url from '../img/dungeon_tiles.png';
+import * as wallUrl from '../img/wall.png';
 
 // var ARROW_MAP = {
 //   37: 'left',
@@ -38,7 +39,8 @@ export class Game {
   play() {
     this._clear(); // clear the whole canvas to draw something new
     this._drawBorder(); // draw a game area border
-    this._drawMap();
+    this._drawTerrain();
+    this._drawLayout()
     this._player.draw(); // update player on each tick
     // this._ctx.fillRect(20, 20, 150, 100);
 
@@ -46,7 +48,7 @@ export class Game {
       requestAnimationFrame(this.play.bind(this));
       // this._battleRNG(); // run play again ~60 times per sec
     } else {
-      this._playLose();
+      // this._playLose();
     }
   }
 
@@ -82,14 +84,19 @@ export class Game {
     this._ctx.stroke();
   }
 
-  _drawMap() {
+  _drawTerrain() {
     let mapItem = document.createElement('img');
     mapItem.src = url.default;
-    this._ctx.moveTo(0, 0);
     // ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-    this._ctx.drawImage(mapItem,32,31,170,180,0,0,1100,1000)
-    this._ctx.lineTo(200, 100);
-    this._ctx.stroke();
+    this._ctx.drawImage(mapItem,32,31,160,180,0,0,this._width*2,this._height*2)
+  }
+
+  _drawLayout() {
+    let wall = document.createElement('img');
+    wall.src = wallUrl.default;
+    // ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    this._ctx.drawImage(wall,20,50,20,50)
+    // let wallWith =
   }
 
   _clear() {

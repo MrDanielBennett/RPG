@@ -110,8 +110,6 @@ export class Character {
     sprite.src = mage.default;
     this._ctx.beginPath();
     this._ctx.drawImage(sprite,this._x,this._y)
-    // this._ctx.rect(this._x, this._y, this._width, this._height);
-    // this._ctx.fillStyle = 'yellow';
     this._ctx.fill();
   }
 

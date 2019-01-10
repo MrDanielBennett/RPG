@@ -12,6 +12,6 @@ $(document).ready(function() {
 
   let game = new Game(document.getElementsByTagName('canvas')[0], 512, 480);
   game.play();
-  
+
 
 });
