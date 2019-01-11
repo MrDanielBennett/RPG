@@ -107,7 +107,7 @@ export class Character {
   _battleRNG() {
     if (this.inBattle === false && ((Date.now() - this.lastBattle) > 20000)) {
       console.log(Date.now() - this.lastBattle);
-      let slime = new monster.Slime(this._ctx, this._width, this._height, 0, 0);
+      let slime = new monster.Spider(this._ctx, this._width, this._height, 0, 0);
       if (Math.floor(Math.random() * 100) < 5) {
         let battle = new Battle(this, slime);
         console.log(this);

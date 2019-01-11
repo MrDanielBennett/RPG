@@ -13,9 +13,9 @@ export class Game {
     this._width = width;
     this._height = height;
     this._ctx = canvas.getContext('2d'); // store context to draw something
-    this._player = new character.Knight(this._ctx, this._width / 20, this._height / 20);
+    this._player = new character.Wizard(this._ctx, this._width / 20, this._height / 20);
     this._player.weaponCheck();
-    this._monster = new monster.Placeholder(this._ctx, this._width / 20, this._height / 20, this._player._x, this._player._y);
+    this._monster = new monster.Spider(this._ctx, this._width / 20, this._height / 20, this._player._x, this._player._y);
     console.log(slimeSprite.default);
     // create a simple player
     console.log(this._player);
