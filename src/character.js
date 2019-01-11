@@ -1,7 +1,7 @@
 // import * as map from '../img/dungeon_tiles.png';
 import * as knightSprite from '../img/knight.png';
-// import * as archerSprite from '../img/archer.png';
-// import * as mage from '../img/wizard.png';
+import * as archerSprite from '../img/archer.png';
+import * as mage from '../img/wizard.png';
 import * as monster from './monster.js';
 import {Battle} from './battle.js';
 // import { Game } from './game.js';
@@ -15,12 +15,14 @@ var ARROW_MAP = {
 
 export class Character {
   constructor(ctx, width, height){
+    this.class;
     this.health = 10;
     this.energy = 10;
     this.speed = 1;
     this.attack = 1;
     this.level = 1;
     this.experience = 0;
+    this.xpToLevel = 100;
     this.inventory = [];
     this.equipped = [];
     this.inBattle = false;
@@ -38,8 +40,9 @@ export class Character {
   }
 
   levelUp() {
-    if (this.experience >= 100) {
+    if (this.experience >= this.xpToLevel) {
       this.experience = 0;
+      this.xpTpLevel += 20;
       this.level ++;
       this.health += 5;
       this.energy += 5;
@@ -115,8 +118,16 @@ export class Character {
   }
 
   draw() {
-    let sprite = document.createElement('img') ;
-    sprite.src = knightSprite.default;
+    let sprite = document.createElement('img');
+    if (this.class === 'knight') {
+      sprite.src = knightSprite.default;
+    } else if (this.class === 'mage') {
+      sprite.src = mage.default;
+    } else if (this.class === 'archer') {
+      sprite.src = archerSprite.default;
+    } else {
+      sprite.src = archerSprite.default;
+    }
     this._ctx.beginPath();
     this._ctx.drawImage(sprite,this._x,this._y);
     this._ctx.fill();
@@ -164,6 +175,7 @@ export class Character {
 export class Archer extends Character {
   constructor(ctx, width, height) {
     super(ctx, width, height);
+    this.class = 'archer';
     this.speed = 3;
     this.equipped = ["bow", "rags"];
   }
@@ -172,6 +184,7 @@ export class Archer extends Character {
 export class Knight extends Character {
   constructor(ctx, width, height) {
     super(ctx, width, height);
+    this.class = 'knight';
     this.health = 20;
     this.equipped = ["sword", "rags"];
   }
@@ -180,6 +193,7 @@ export class Knight extends Character {
 export class Wizard extends Character {
   constructor(ctx, width, height) {
     super(ctx, width, height);
+    this.class = 'mage';
     this.attack = 4;
     this.equipped = ["magic_staff", "rags"];
   }

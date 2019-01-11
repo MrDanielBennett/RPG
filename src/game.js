@@ -39,7 +39,7 @@ export class Game {
     } else {
       this._playLose();
     }
-  $('#playerHealth').text(this._player.health);
+    $('#playerHealth').text(this._player.health);
   }
 
   _playLose() {
